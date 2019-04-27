@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hkj.mapper.FriendMapper">
+  <resultMap id="BaseResultMap" type="com.hkj.pojo.Friend">
+    <id column="fri_id" jdbcType="INTEGER" property="fri_id" />
+    <result column="fri_s_id1" jdbcType="INTEGER" property="fri_s_id1" />
+    <result column="fri_s_id2" jdbcType="INTEGER" property="fri_s_id2" />
+    <result column="fri_url" jdbcType="VARCHAR" property="fri_url" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    fri_id, fri_s_id1, fri_s_id2, fri_url
+  </sql>
+  <select id="selectByExample" parameterType="com.hkj.pojo.FriendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from frients_tb
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from frients_tb
+    where fri_id = #{fri_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from frients_tb
+    where fri_id = #{fri_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="fri_id" keyProperty="fri_id" parameterType="com.hkj.pojo.Friend" useGeneratedKeys="true">
+    insert into frients_tb (fri_s_id1, fri_s_id2, fri_url
+      )
+    values (#{fri_s_id1,jdbcType=INTEGER}, #{fri_s_id2,jdbcType=INTEGER}, #{fri_url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="fri_id" keyProperty="fri_id" parameterType="com.hkj.pojo.Friend" useGeneratedKeys="true">
+    insert into frients_tb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fri_s_id1 != null">
+        fri_s_id1,
+      </if>
+      <if test="fri_s_id2 != null">
+        fri_s_id2,
+      </if>
+      <if test="fri_url != null">
+        fri_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fri_s_id1 != null">
+        #{fri_s_id1,jdbcType=INTEGER},
+      </if>
+      <if test="fri_s_id2 != null">
+        #{fri_s_id2,jdbcType=INTEGER},
+      </if>
+      <if test="fri_url != null">
+        #{fri_url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hkj.pojo.Friend">
+    update frients_tb
+    <set>
+      <if test="fri_s_id1 != null">
+        fri_s_id1 = #{fri_s_id1,jdbcType=INTEGER},
+      </if>
+      <if test="fri_s_id2 != null">
+        fri_s_id2 = #{fri_s_id2,jdbcType=INTEGER},
+      </if>
+      <if test="fri_url != null">
+        fri_url = #{fri_url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fri_id = #{fri_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hkj.pojo.Friend">
+    update frients_tb
+    set fri_s_id1 = #{fri_s_id1,jdbcType=INTEGER},
+      fri_s_id2 = #{fri_s_id2,jdbcType=INTEGER},
+      fri_url = #{fri_url,jdbcType=VARCHAR}
+    where fri_id = #{fri_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -6,6 +6,7 @@ import com.hkj.pojo.Student;
 import com.hkj.service.StudentService;
 import com.hkj.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +42,6 @@ public class StudetnController {
         int flag = 0;//flag 标记状态，0为不存在该用户，1为存在该用户，但密码错误，2为存在用户，密码正确
         ModelAndView mav = new ModelAndView();
         Student s = studentService.get(student.getS_email());
-        System.out.println("已经调用过了studentService，查询结果为："+s);
         mav.setViewName("../../login");
         mav.addObject("message","user does not exist!");
         if (s != null){
@@ -54,14 +54,27 @@ public class StudetnController {
                 request.getSession().setAttribute("student",s);
             }
         }
-        System.out.println("flag值为"+flag);
         return mav;
     }
 
     @RequestMapping("privateOptions")
     public ModelAndView privateOptions(Student student,HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
-        System.out.println(request.getSession().getAttribute("student"));
+        System.out.println("进入了privateOptions");
+        return mav;
+    }
+
+    @RequestMapping("studentDispatcher")
+    public ModelAndView studentDispatcher(Student student,HttpServletRequest request,String flag){
+        ModelAndView mav = new ModelAndView();
+        System.out.println("flag的值为:"+flag);
+        if ("1".equals(flag)){
+            mav.addObject("s",student);
+            mav.setViewName("student/privateOptions");
+        }else {
+            mav.setViewName("error");
+        }
+
         return mav;
     }
 

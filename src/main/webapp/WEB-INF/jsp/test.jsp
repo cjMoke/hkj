@@ -13,6 +13,10 @@
 </head>
 <body>
     取出的student的值为：${sessionScope.student.s_name}<br>
-    <a href="privateOptions">跳转到个人设置页面</a>
+    <a href="studentDispatcher?flag=1">跳转到个人设置页面</a><br>
+    <form action="uploadImage" method="post" enctype="multipart/form-data">
+        选择图片:<input type="file" name="image" accept="image/*" /> <br>
+        <input type="submit" value="上传">
+    </form>
 </body>
 </html>

@@ -12,8 +12,13 @@
     <title>Title</title>
 </head>
 <body>
+    <img src="../image/${sessionScope.student.s_photo}">
     取出的student的值为：${sessionScope.student.s_name}<br>
-    <a href="studentDispatcher?flag=1">跳转到个人设置页面</a><br>
+    签名：${sessionScope.student.s_autograph}<br>
+    <a href="/studentDispatcher?flag=1">跳转到个人设置页面</a><br>
+    <a href="/studentDispatcher?flag=2">跳转到好友查看页面</a><br>
+    <a href="/studentDispatcher?flag=3">跳转到添加好友页面</a><br>
+    <a href="/studentDispatcher?flag=4">跳转到朋友圈页面</a><<br>
     <form action="uploadImage" method="post" enctype="multipart/form-data">
         选择图片:<input type="file" name="image" accept="image/*" /> <br>
         <input type="submit" value="上传">

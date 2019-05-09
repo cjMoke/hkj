@@ -14,9 +14,10 @@
 <body>
     privateOptions.jsp页面<br>
     <form action="privateOptions" enctype="multipart/form-data" method="post">
-        <input value="${sessionScope.student.s_password}" name="s_password"><br>
-        <input name="s_photo"><br>
-        <input type="submit" value="更改设置">
+        更改密码：<input value="${sessionScope.student.s_password}" name="s_password" type="password"><br>
+        上传头像：<input type="file" name="image" accept="image/*" /> <br>
+        更改签名：<input type="text" value="${sessionScope.student.s_autograph}" name="s_autograph" id="">
+        <input type="submit" value="设置">
     </form>
 </body>
 </html>

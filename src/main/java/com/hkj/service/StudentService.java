@@ -11,4 +11,5 @@ public interface StudentService {
 
 	Student get(String s_email);
 
+	Student updateByPrimaryKey(Student student);
 }
